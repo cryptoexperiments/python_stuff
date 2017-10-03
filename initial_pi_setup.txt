@@ -1,0 +1,23 @@
+change user password, attach 3M sticker
+remove wallpaper, set plain green background
+connect to wifi
+set vnc (enable VNC interface)
+change resolution
+? set locale english US 
+set timezone europe/riga
+set keyboard to English US
+set clock format to %x %R
+
+uncomment cron-related line to get cron log output
+sudo nano /etc/rsyslog.conf 
+
+run script during boot:
+crontab -e
+@reboot python3 /home/pi/Dev/file_test.py
+
+
+
+Autostarting gui programs (not tested yet)
+/home/pi/.config/lxsession/LXDE-pi/autostart
+OR
+/etc/rc.local
