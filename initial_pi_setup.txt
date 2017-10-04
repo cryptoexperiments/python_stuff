@@ -1,5 +1,5 @@
 change user password, attach 3M sticker
-remove wallpaper, set plain green background
+remove wallpaper, set plain green background, set resolution
 connect to wifi
 set vnc (enable VNC interface)
 change resolution
