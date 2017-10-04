@@ -7,6 +7,8 @@ change resolution
 set timezone europe/riga
 set keyboard to English US
 set clock format to %x %R
+install mc
+enable VNC
 
 uncomment cron-related line to get cron log output
 sudo nano /etc/rsyslog.conf 
