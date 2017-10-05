@@ -1,4 +1,4 @@
-change user password, attach 3M sticker
+change user password, attach sticker
 remove wallpaper, set plain green background, set resolution
 connect to wifi
 set vnc (enable VNC interface)
@@ -8,7 +8,8 @@ set timezone europe/riga
 set keyboard to English US
 set clock format to %x %R
 install mc
-enable VNC
+enable VNC,camera (if needed)
+sync GIT
 
 uncomment cron-related line to get cron log output
 sudo nano /etc/rsyslog.conf 
@@ -16,10 +17,19 @@ sudo nano /etc/rsyslog.conf
 run script during boot:
 crontab -e
 @reboot python3 /home/pi/Dev/file_test.py
-
+or
+@reboot python3 GIT/python_stuff/8_date.py
+run in background:
+nohup python 8_date.py
+kill:
+ps -ef | grep string
+kill -9 PID
 
 
 Autostarting gui programs (not tested yet)
 /home/pi/.config/lxsession/LXDE-pi/autostart
 OR
 /etc/rc.local
+
+ctrl+l - clears screen
+ctrl+u - clears all left to cursor
