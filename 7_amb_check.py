@@ -1,11 +1,14 @@
 import time
 import requests
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 NODE_ADDRESS = 'http://'
 TOKEN_CONTRACT = ''
 FUNCTION_SIGNATURE = ''
 ADDRESS_TO_CHECK = ''
 ITEM_PRICE = 5
+PIN_BUZZER = 17
+PIN_SOLENOID = 27
+
 
 def get_balance():
     payload = {
@@ -26,21 +29,36 @@ def get_balance():
     return result
 
 
+def gpio_init():
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(PIN_BUZZER, GPIO.OUT)
+    GPIO.setup(PIN_SOLENOID, GPIO.OUT)
+    GPIO.output(PIN_BUZZER, True)
+    time.sleep(1)
+    GPIO.output(PIN_BUZZER, False)
+
+
 def perform_action():
     print("performing action")
-    # GPIO.setwarnings(False)
-    # GPIO.setmode(GPIO.BCM)
-    # GPIO.setup(17, GPIO.OUT)
-    # GPIO.setup(20, GPIO.OUT)
-    # GPIO.output(17, True)
-    # GPIO.output(20, True)
-    # time.sleep(1)
-    # GPIO.output(17, False)
-    # GPIO.output(20, False)
+    GPIO.output(PIN_BUZZER, True)
+    GPIO.output(PIN_SOLENOID, True)
+    time.sleep(0.5)
+    GPIO.output(PIN_BUZZER, False)
+    GPIO.output(PIN_SOLENOID, False)
 
 
-perform_action()  # just to test
+def insufficien_payment():
+    for n in range(3):
+        GPIO.output(PIN_BUZZER, True)
+        time.sleep(0.1)
+        GPIO.output(PIN_BUZZER, False)
+        time.sleep(0.1)
+    
+
+gpio_init()
 initial_balance = get_balance()
+last_seen_insufficient_balance = 0
 
 while True:
     print("initial balance={}".format(initial_balance))
@@ -60,6 +78,10 @@ while True:
         if current_balance >= initial_balance + ITEM_PRICE:
             initial_balance += ITEM_PRICE
             perform_action()
-    time.sleep(10)
+        elif current_balance != last_seen_insufficient_balance:
+            print("!!! insufficient payment !!!")
+            last_seen_insufficient_balance = current_balance
+            insufficien_payment()
+    time.sleep(0.5)
 
 
