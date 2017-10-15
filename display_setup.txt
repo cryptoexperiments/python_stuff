@@ -1,0 +1,8 @@
+Geekcreit® 7 Inch 1024 x 600 HDMI Capacitive IPS LCD Display 5 Point Touch Screen Support Raspberry pi / Banana Pi / Beaglebone Black
+
+- No driver if you use Raspbian system, only add the following line setting in config.txt;
+max_usb_current=1
+hdmi_group=2
+hdmi_mode=1
+hdmi_mode=87
+hdmi_cvt 1024 600 60 6 0 0 0
